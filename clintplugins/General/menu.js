@@ -112,7 +112,7 @@ module.exports = {
         { title: 'ᴜᴘᴛɪᴍᴇ', description: 'Check uptime', id: `${effectivePrefix}uptime` },
         { title: 'ᴠᴄғ', description: 'VCF info', id: `${effectivePrefix}vcf` },
         { title: 'ᴡᴇᴀᴛʜᴇʀ', description: 'Get weather', id: `${effectivePrefix}weather` },
-                                      ],
+                    ],
                     },
                     {
                      title: '⚙️sᴇᴛᴛɪɴɢs ᴄᴏᴍᴍᴅᴀs',
