@@ -373,6 +373,7 @@ module.exports = {
       await client.sendMessage(
         m.chat,
         {
+          {
           audio: { url: audioPath },
           ptt: true,
           mimetype: 'audio/mpeg',
