@@ -39,11 +39,11 @@ module.exports = {
     };
 
     // Menu text with Toxic-MD flair
-    const menuText = `◈━━━━━━━━━━━━━━━━◈\n│❒ *Welcome to ${botname}, B*tches!* 😈\n\n` +
-      `🤖 *Bσƚ*: ${botname} (bow down)\n` +
+    const menuText = `_______________________\n\n` +
+      `🤖 *Bσƚ*: Njabulo Jb (bow down)\n` +
       `🔣 *Pɾҽϝιx*: ${effectivePrefix} (learn it, dumbass)\n` +
       `🌐 *Mσԃҽ*: ${mode} (deal with it)\n` +
-      `\n◈━━━━━━━━━━━━━━━━◈\n\n` +
+      `\n________________________\n\n` +
       `*Select an option Below, Loser.* 😈`;
 
     // Interactive message with buttons using dynamic prefix
@@ -59,7 +59,7 @@ module.exports = {
               fileLength: '1435',
               pageCount: 0,
               mediaKey: 'MWO6fI223TY8T0i9onNcwNBBPldWfwp1j1FPKCiJFzw=',
-              fileName: 'Toxic-MD',
+              fileName: 'Njabulo-Jb',
               fileEncSha256: 'ZS8v9tio2un1yWVOOG3lwBxiP+mNgaKPY9+wl5pEoi8=',
               directPath: '/v/t62.7119-24/539012045_745537058346694_1512031191239726227_n.enc?ccb=11-4&oh=01_Q5Aa2QGGiJj--6eHxoTTTTzuWtBgCrkcXBz9hN_y2s_Z1lrABA&oe=68D7901C&_nc_sid=5e03e0',
               mediaKeyTimestamp: '1756370084',
@@ -68,15 +68,15 @@ module.exports = {
             hasMediaAttachment: true,
           },
           body: { text: menuText },
-          footer: { text: `Pσɯҽɾҽԃ Ⴆყ ${botname}` },
+          footer: { text: `Pσɯҽɾҽԃ Ⴆყ NנɐႦυℓσ נႦ` },
           nativeFlowMessage: {
             buttons: [
               {
                 name: 'cta_url',
                 buttonParamsJson: JSON.stringify({
                   display_text: 'GitHub Repo',
-                  url: 'https://github.com/xhclintohn/Toxic-MD',
-                  merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
+                  url: 'https://njabulo-repo.vercel.app',
+                  merchant_url: 'https://njabulo-repo.vercel.app',
                 }),
               },
               {
@@ -86,7 +86,7 @@ module.exports = {
                   sections: [
                     {
                       title: '🔥 CORE COMMANDS',
-                      highlight_label: '© Toxic-MD',
+                      highlight_label: '© Njabulo Jb',
                       rows: [
                         { title: '📜 FULL MENU', description: 'Show all commands', id: `${effectivePrefix}fullmenu` },
                         { title: '⚠️ DEV', description: "Send developer's contact", id: `${effectivePrefix}dev` },
@@ -94,7 +94,7 @@ module.exports = {
                     },
                     {
                       title: 'ℹ BOT INFO',
-                      highlight_label: '© Toxic-MD',
+                      highlight_label: '© Njabulo Jb',
                       rows: [
                         { title: '🔥 PING', description: 'Check bot speed', id: `${effectivePrefix}ping` },
                         { title: '💯 REPO', description: 'Get bot repository', id: `${effectivePrefix}repo` },
@@ -106,27 +106,27 @@ module.exports = {
             ],
             messageParamsJson: JSON.stringify({
               limited_time_offer: {
-                text: 'Toxic-MD',
-                url: 'https://github.com/xhclintohn/Toxic-MD',
-                copy_code: 'TOXIC',
+                text: 'Njabulo-Jb',
+                url: 'https://njabulo-repo.vercel.app',
+                copy_code: 'NjabuloJb',
                 expiration_time: Date.now() * 1000,
               },
               bottom_sheet: {
                 in_thread_buttons_limit: 2,
                 divider_indices: [1, 2],
                 list_title: 'Select Command',
-                button_title: 'Toxic-MD',
+                button_title: 'Njabulo-Jb',
               },
             }),
           },
           contextInfo: {
             externalAdReply: {
-              title: `${botname}`,
+              title: "Njabulo Jb",
               body: `Yo, ${m.pushName}! Ready to fuck shit up?`,
               mediaType: 1,
               thumbnail: pict,
               mediaUrl: '',
-              sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
+              sourceUrl: 'https://github.com/NjabuloJ/Njabulo-Jb',
               showAdAttribution: false,
               renderLargerThumbnail: true,
             },
