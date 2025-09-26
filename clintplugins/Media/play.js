@@ -8,15 +8,11 @@ if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir);
 }
 
-const isValidYouTubeUrl = (url) => {
-  return /^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/|embed\/)?[A-Za-z0-9_-]{11}(\?.*)?$/.test(url);
-};
-
 module.exports = async (context) => {
   const { client, m, text } = context;
 
   const formatStylishReply = (message) => {
-    return `◈━━━━━━━━━━━━━━━━◈\n│❒ ${message}\n◈━━━━━━━━━━━━━━━━◈\n> Pσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
+    return `${message}\n> Pσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
   };
 
   if (!text) {
@@ -47,17 +43,19 @@ module.exports = async (context) => {
       );
     }
 
-    const videoInfo = `╭───────────────◆\n` +
-                      `│⿻ *Title:* ${video.title}\n` +
-                      `│⿻ *Duration:* ${video.duration.timestamp}\n` +
-                      `│⿻ *Views:* ${video.views}\n` +
-                      `│⿻ *Uploaded:* ${video.ago}\n` +
-                      `│⿻ *Channel:* ${video.author.name}\n` +
-                      `╰───────────────◆`;
+    const videoInfo = `*Title:* ${video.title}\n` +
+                      `*Duration:* ${video.duration.timestamp}\n` +
+                      `*Views:* ${video.views}\n` +
+                      `*Uploaded:* ${video.ago}\n` +
+                      `*Channel:* ${video.author.name}\n` +
+                      `*URL:* ${video.url}`;
 
     await client.sendMessage(
       m.chat,
-      { text: formatStylishReply(videoInfo) },
+      {
+        image: { url: video.thumbnail },
+        captionUrl: formatStylishReply(videoInfo),
+      },
       { quoted: m, ad: true }
     );
 
@@ -99,12 +97,6 @@ module.exports = async (context) => {
 
     await client.sendMessage(
       m.chat,
-      { text: formatStylishReply(`Droppin' *${apiData.result.title || video.title}* for ya, fam! Crank it up! 🔥🎧`) },
-      { quoted: m, ad: true }
-    );
-
-    await client.sendMessage(
-      m.chat,
       {
         audio: { url: filePath },
         mimetype: "audio/mpeg",
@@ -120,6 +112,12 @@ module.exports = async (context) => {
           },
         },
       },
+      { quoted: m, ad: true }
+    );
+
+    await client.sendMessage(
+      m.chat,
+      { text: formatStylishReply(`hy🍥👋 ${message}\n🎧Droppin' *${apiData.result.title || video.title}* \n🎧 *for ya, fam! Crank it up! 🔥*`) },
       { quoted: m, ad: true }
     );
 
