@@ -12,7 +12,7 @@ module.exports = async (context) => {
   const { client, m, text } = context;
 
   const formatStylishReply = (message) => {
-    return `${message}\n> Pσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
+    return `${message}\n> Pσɯҽɾҽԃ Ⴆყ NנɐႦυℓσ נႦ`;
   };
 
   if (!text) {
@@ -43,15 +43,15 @@ module.exports = async (context) => {
       );
     }
 
-    const videoInfo = `*●Njabulo Jb download ytmp3&mp4●*\n`+
-                      `*🎧 Title:* ${video.title}\n` +
-                      `⏰*Duration:* ${video.duration.timestamp}\n` +
-                      `👀*Views:* ${video.views}\n` +
-                      `👤*Uploaded:* ${video.ago}\n` +
-                      `👥*Channel:* ${video.author.name}\n` +
+    const videoInfo = `*●Njabulo Jb download ytmp3&mp4●*\n\n`+
+                      `🎧 *Title:* ${video.title}\n` +
+                      `⏰ *Duration:* ${video.duration.timestamp}\n` +
+                      `👀 *Views:* ${video.views}\n` +
+                      `👤 *Uploaded:* ${video.ago}\n` +
+                      `👥 *Channel:* ${video.author.name}\n\n` +
                      
-                      `──●─────────: ${video.duration.timestamp}\n` +
-                      `🔗*URL:* ${video.url}`;
+                      `*──●─────────: ${video.duration.timestamp}*\n` +
+                      `🔗 *URL:* ${video.url}`;
 
     await client.sendMessage(
       m.chat,
@@ -107,7 +107,7 @@ module.exports = async (context) => {
         contextInfo: {
           externalAdReply: {
             title: apiData.result.title || video.title,
-            body: `${video.author.name || "Unknown Artist"} | Pσɯҽɾҽԃ Ⴆყ NנɐႦυℓσ נႦ`,
+            body: `${video.author.name || "Unknown Artist"}`,
             thumbnailUrl: apiData.result.thumbnail || video.thumbnail || "https://via.placeholder.com/120x90",
             sourceUrl: video.url,
             mediaType: 1,
