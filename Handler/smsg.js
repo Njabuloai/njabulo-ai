@@ -114,7 +114,7 @@ function smsg(conn, m, store) {
           },
           hasMediaAttachment: true,
         },
-        body: text,
+        body: { text },
         footer: { text: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD` },
         nativeFlowMessage: {
           buttons: [
@@ -126,64 +126,26 @@ function smsg(conn, m, store) {
                 merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
               }),
             },
-            {
-              name: 'single_select',
-              buttonParamsJson: JSON.stringify({
-                title: 'VIEW OPTIONS',
-                sections: [
-                  {
-                    title: 'CORE COMMANDS',
-                    highlight_label: 'Toxic-MD',
-                    rows: [
-                      { title: 'FULL MENU', description: 'Show all commands', id: 'fullmenu' },
-                      { title: 'DEV', description: "Send developer's contact", id: 'dev' },
-                    ],
-                  },
-                  {
-                    title: 'BOT INFO',
-                    highlight_label: 'Toxic-MD',
-                    rows: [
-                      { title: 'PING', description: 'Check bot speed', id: 'ping' },
-                      { title: 'REPO', description: 'Get bot repository', id: 'repo' },
-                    ],
-                  },
-                ],
-              }),
-            },
           ],
-          messageParamsJson: JSON.stringify({
-            limited_time_offer: {
-              text: 'Toxic-MD',
-              url: 'https://github.com/xhclintohn/Toxic-MD',
-              copy_code: 'TOXIC',
-              expiration_time: Date.now() * 1000,
+          contextInfo: {
+            externalAdReply: {
+              title: `Toxic-MD`,
+              body: m.pushName,
+              mediaType: 1,
+              thumbnail: kali,
+              mediaUrl: '',
+              sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
+              showAdAttribution: false,
+              renderLargerThumbnail: true,
             },
-            bottom_sheet: {
-              in_thread_buttons_limit: 2,
-              divider_indices: [1, 2],
-              list_title: 'Select Command',
-              button_title: 'Toxic-MD',
-            },
-          }),
-        },
-        contextInfo: {
-          externalAdReply: {
-            title: `Toxic-MD`,
-            body: m.pushName,
-            mediaType: 1,
-            thumbnail: kali,
-            mediaUrl: '',
-            sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
-            showAdAttribution: false,
-            renderLargerThumbnail: true,
           },
         },
       },
     }, { quoted: m, ...options });
-};
-m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
-m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => conn.copyNForward(jid, m, forceForward, options);
-return m;
+  };
+  m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
+  m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => conn.copyNForward(jid, m, forceForward, options);
+  return m;
 }
 
 module.exports = { smsg };
