@@ -114,7 +114,7 @@ function smsg(conn, m, store) {
          previewType: "PHOTO",
          thumbnail: kali, 
          renderLargerThumbnail: true,
-        sourceUrl: 'https://github.com/xhclintohn/Toxic-MD'
+        sourceUrl: 'https://www.facebook.com/profile.php?id=100094314013209'
           }
         }
       }, 
