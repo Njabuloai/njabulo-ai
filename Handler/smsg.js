@@ -14,13 +14,29 @@ const path = require('path');
 const filePath = path.resolve(__dirname, '../toxic.jpg'); 
 const kali = readFileSync(filePath);
 
-const button = {
-  name: 'cta_url',
-  buttonParamsJson: JSON.stringify({
-    display_text: 'GitHub Repo',
-    url: 'https://github.com/xhclintohn/Toxic-MD',
-  }),
-};
+const buttons = [
+  {
+    name: "quick_reply",
+    buttonParamsJson: JSON.stringify({
+      display_text: "MENU",
+      id: `.menu`
+    })
+  },
+  {
+    name: "cta_url",
+    buttonParamsJson: JSON.stringify({
+      display_text: "Follow our Channel",
+      url: `https://whatsapp.com/channel/0029VagJlnG6xCSU2tS1Vz19`
+    })
+  },
+  {
+    name: "quick_reply",
+    buttonParamsJson: JSON.stringify({
+      display_text: "PING",
+      id: `.ping`
+    })
+  }
+];
 
 function smsg(conn, m, store) {
   if (!m) return m;
@@ -64,7 +80,7 @@ function smsg(conn, m, store) {
     m.mentionedJid = m.msg.contextInfo ? m.msg.contextInfo.mentionedJid : [];
     if (m.quoted) {
       let type = getContentType(quoted);
-      m.quoted = m.quoted quoted[type];
+      m.quoted = m.quoted[type];
       if (["productMessage"].includes(type)) {
         type = getContentType(m.quoted);
         m.quoted = m.quoted[type];
@@ -105,19 +121,44 @@ function smsg(conn, m, store) {
   m.text = m.text || m.body || "";
   m.reply = (text, chatId = m.chat, options = {}) => {
     return conn.sendMessage(chatId, {
-      text: text,
-      footer: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD`,
-      buttons: [button],
-      contextInfo: {
-        externalAdReply: {
-          title: `Toxic-MD`,
-          body: m.pushName,
-          mediaType: 1,
-          thumbnail: kali,
-          mediaUrl: '',
-          sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
-          showAdAttribution: false,
-          renderLargerThumbnail: true,
+      viewOnceMessage: {
+        message: {
+          messageContextInfo: {
+            deviceListMetadata: {},
+            deviceListMetadataVersion: 2
+          },
+          interactiveMessage: proto.Message.InteractiveMessage.create({
+            body: proto.Message.InteractiveMessage.Body.create({
+              text: text
+            }),
+            footer: proto.Message.InteractiveMessage.Footer.create({
+              text: " Powerd By  Njabulo Jb"
+            }),
+            header: proto.Message.InteractiveMessage.Header.create({
+              title: "",
+              gifPlayback: true,
+              subtitle: "",
+              hasMediaAttachment: false 
+            }),
+            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+              buttons
+            }),
+            contextInfo: {
+              externalAdReply: {
+                title: `Toxic-MD`,
+                body: m.pushName,
+                mediaType: 1,
+                thumbnail: kali,
+                mediaUrl: '',
+                sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
+                showAdAttribution: false,
+                renderLargerThumbnail: true,
+              },
+              mentionedJid: [m.sender],
+              forwardingScore: 999,
+              isForwarded: true,
+            }
+          }),
         },
       },
     }, { quoted: m, ...options });
