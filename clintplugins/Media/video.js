@@ -5,26 +5,32 @@ const axios = require('axios');
 
 const BASE_URL = 'https://noobs-api.top';
 
-module.exports = {
-  name: 'video',
-  aliases: ['vid', 'mp4', 'movie'],
-  description: 'Search and send video from YouTube as MP4.',
-  category: 'Search',
-  execute: async (context) => {
-    const { client, m, text } = context;
+module.exports = async (context) => {
+  const { client, m, text } = context;
 
-    await client.sendMessage(m.chat, { react: { text: "📹", key: m.key } });
+    const formatStylishReply = (message) => {
+    return `◈━━━━━━━━━━━━━━━━◈\n│❒ ${message}\n◈━━━━━━━━━━━━━━━━◈\n> Pσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
+  };
 
-    if (!text || !text.startsWith(".video ")) {
-      return client.sendMessage(m.chat, {
-        text: 'Please provide a video name or keyword.'
-      }, { quoted: m, ad: true });
+    if (!text) {
+    return client.sendMessage(
+      m.chat,
+      { text: formatStylishReply("Yo, drop a video name, fam! 📹 Ex: .video Alone ft Ava Max") },
+      { quoted: m, ad: true }
+    );
     }
 
-    const query = text.replace(".video", "").trim();
+      if (text.length > 100) {
+    return client.sendMessage(
+      m.chat,
+      { text: formatStylishReply("Keep it short, homie! Video name max 100 chars. 📝") },
+      { quoted: m, ad: true }
+    );
+      }
+  
 
     try {
-      console.log('[VIDEO] Searching YT for:', query);
+      const searchQuery = `${text} official`;
       const search = await yts(query);
       const video = search.videos[0];
 
