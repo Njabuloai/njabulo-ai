@@ -10,33 +10,11 @@ const {
   getContentType,
 } = require("@whiskeysockets/baileys");
 const { readFileSync } = require('fs');
+
 const path = require('path');
+
 const filePath = path.resolve(__dirname, '../toxic.jpg'); 
 const kali = readFileSync(filePath);
-
-const buttons = [
-  {
-    name: "quick_reply",
-    buttonParamsJson: JSON.stringify({
-      display_text: "MENU",
-      id: `.menu`
-    })
-  },
-  {
-    name: "cta_url",
-    buttonParamsJson: JSON.stringify({
-      display_text: "Follow our Channel",
-      url: `https://whatsapp.com/channel/0029VagJlnG6xCSU2tS1Vz19`
-    })
-  },
-  {
-    name: "quick_reply",
-    buttonParamsJson: JSON.stringify({
-      display_text: "PING",
-      id: `.ping`
-    })
-  }
-];
 
 function smsg(conn, m, store) {
   if (!m) return m;
@@ -120,48 +98,22 @@ function smsg(conn, m, store) {
   if (m.msg.url) m.download = () => conn.downloadMediaMessage(m.msg);
   m.text = m.text || m.body || "";
   m.reply = (text, chatId = m.chat, options = {}) => {
-    return conn.sendMessage(chatId, {
-      viewOnceMessage: {
-        message: {
-          messageContextInfo: {
-            deviceListMetadata: {},
-            deviceListMetadataVersion: 2
-          },
-          interactiveMessage: proto.Message.InteractiveMessage.create({
-            body: proto.Message.InteractiveMessage.Body.create({
-              text: text
-            }),
-            footer: proto.Message.InteractiveMessage.Footer.create({
-              text: " Powerd By  Njabulo Jb"
-            }),
-            header: proto.Message.InteractiveMessage.Header.create({
-              title: "",
-              gifPlayback: true,
-              subtitle: "",
-              hasMediaAttachment: false 
-            }),
-            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
-              buttons
-            }),
-            contextInfo: {
-              externalAdReply: {
-                title: `Toxic-MD`,
-                body: m.pushName,
-                mediaType: 1,
-                thumbnail: kali,
-                mediaUrl: '',
-                sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
-                showAdAttribution: false,
-                renderLargerThumbnail: true,
-              },
-              mentionedJid: [m.sender],
-              forwardingScore: 999,
-              isForwarded: true,
-            }
-          }),
-        },
-      },
-    }, { quoted: m, ...options });
+    return conn.sendMessage(chatId, 
+      {
+        text: text,
+        contextInfo: {
+          externalAdReply: {
+            title: `Toxic-MD`,
+            body: m.pushName,
+            previewType: "PHOTO",
+            thumbnailUrl: 'https://i.ibb.co/7JcYBD5Y/cbb9f804644ae8c4.jpg', 
+            thumbnail: kali, 
+            sourceUrl: 'https://github.com/xhclintohn/Toxic-MD'
+          }
+        }
+      }, 
+      { quoted: m, ...options }
+    );
   };
   m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
   m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => conn.copyNForward(jid, m, forceForward, options);
