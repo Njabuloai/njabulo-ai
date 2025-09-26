@@ -114,7 +114,7 @@ function smsg(conn, m, store) {
           },
           hasMediaAttachment: true,
         },
-        body: { text },
+        body: text,
         footer: { text: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD` },
         nativeFlowMessage: {
           buttons: [
