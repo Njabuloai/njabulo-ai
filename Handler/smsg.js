@@ -108,6 +108,18 @@ function smsg(conn, m, store) {
           }),
         },
       ],
+      contextInfo: {
+        externalAdReply: {
+          title: `Toxic-MD`,
+          body: m.pushName,
+          mediaType: 1,
+          thumbnail: kali,
+          mediaUrl: '',
+          sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
+          showAdAttribution: false,
+          renderLargerThumbnail: true,
+        },
+      },
     }, { quoted: m, ...options });
   };
   m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
