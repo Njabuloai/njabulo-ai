@@ -53,9 +53,25 @@ module.exports = async (client, m, store, chatbotpmSetting) => {
             }
             await client.sendMessage(
                 m.key.remoteJid,
-                { text: data.response }, 
-                { quoted: m }
-            );
+                { 
+                text: data.response,
+                contextInfo: {
+                 isForwarded: true,
+                   forwardedNewsletterMessageInfo: {
+                   newsletterJid: '120363399999197102@newsletter',
+                    newsletterName: "╭••➤®Njabulo Jb🍥",
+                       serverMessageId: 143,
+                         },
+                         forwardingScore: 999, // 
+                         externalAdReply: {
+                         title: "Njabulo AI",
+                         previewType: "PHOTO",
+                         thumbnail: kali, 
+                         renderLargerThumbnail: true,
+                        sourceUrl: 'https://www.facebook.com/profile.php?id=100094314013209'
+                    }
+                }
+                }, { quoted: m });
         } catch (e) {
             console.error(`Toxic-MD ChatbotPM Error:`, e);
             await client.sendMessage(
