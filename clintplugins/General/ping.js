@@ -168,7 +168,6 @@ module.exports = {
     if (audioPath) {
       await client.sendMessage(
         m.chat,
-        {
           {
           audio: { url: audioPath },
           ptt: true,
