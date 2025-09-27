@@ -5,21 +5,29 @@ const { getSettings } = require('../../Database/config');
 
 module.exports = {
   name: 'ping',
-  aliases: ['p', 'pong', 'ping2'],
-  description: 'Displays the Njabulo Jb ping command menu with interactive buttons',
+  aliases: ['p'],
+  description: 'Checks the bot\'s response time, uptime, and status with a sassy vibe',
   run: async (context) => {
-    const { client, m, mode, pict, botname, text, prefix } = context;
+    const { client, m, pict,  text, prefix, toxicspeed } = context;
 
-    if (text) {
-      await client.sendMessage(
-        m.chat,
-        {
-          text: `◈━━━━━━━━━━━━━━━━◈\n│❒ Yo ${m.pushName}, what's with the extra bullshit? Just say *${prefix}menu*, moron. 🖕\n┗━━━━━━━━━━━━━━━┛`,
-        },
-        { quoted: m, ad: true }
-      );
-      return;
-    }
+    try {
+      // Validate m.sender
+      if (!m.sender || typeof m.sender !== 'string' || !m.sender.includes('@s.whatsapp.net')) {
+        console.error(`Invalid m.sender: ${JSON.stringify(m.sender)}`);
+        return m.reply(`◎━━━━━━━━━━━━━━━━◎\n│❒ Can't read your number, genius! Try again.\nCheck https://github.com/xhclintohn/Toxic-MD\n◎━━━━━━━━━━━━━━━━◎`);
+      }
+
+      // Validate toxicspeed
+      if (typeof toxicspeed !== 'number' || isNaN(toxicspeed)) {
+        console.error(`Invalid toxicspeed: ${toxicspeed}`);
+        return m.reply(`◎━━━━━━━━━━━━━━━━◎\n│❒ Ping's broken, @${m.sender.split('@')[0]}! Speed data's fucked.\nCheck https://github.com/xhclintohn/Toxic-MD\n◎━━━━━━━━━━━━━━━━◎`, { mentions: [m.sender] });
+      }
+
+      // Retrieve settings to get the current prefix
+      const settings = await getSettings();
+      if (!settings) {
+        return m.reply(`◎━━━━━━━━━━━━━━━━◎\n│❒ Error: Couldn't load settings, you dumb fuck.\nCheck https://github.com/xhclintohn/Toxic-MD\n◎━━━━━━━━━━━━━━━━◎`);
+      }
 
     const settings = await getSettings();
     const effectivePrefix = settings.prefix || '.'; // Dynamic prefix from database
@@ -158,32 +166,20 @@ module.exports = {
 
     await client.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
 
-    // Audio message logic
-    const possibleAudioPaths = [
-      path.join(__dirname, 'xh_clinton', 'menu.mp3'),
-      path.join(process.cwd(), 'xh_clinton', 'menu.mp3'),
-      path.join(__dirname, '..', 'xh_clinton', 'menu.mp3'),
-    ];
+       // Send the audio as a voice note after the ping message
+      const audioUrl = 'https://files.catbox.moe/4ufunx.mp3';
+      await client.sendMessage(m.chat, {
+        audio: { url: audioUrl },
+        mimetype: 'audio/mp4',
+        ptt: true
+      }, { quoted: m });
 
-    let audioPath = null;
-    for (const possiblePath of possibleAudioPaths) {
-      if (fs.existsSync(possiblePath)) {
-        audioPath = possiblePath;
-        break;
-      }
+    } catch (error) {
+      console.error(`Ping command fucked up: ${error.stack}`);
+      await client.sendMessage(m.chat, {
+        text: `◎━━━━━━━━━━━━━━━━◎\n│❒ Ping's fucked, @${m.sender.split('@')[0]}! Try again, you slacker.\nCheck https://github.com/xhclintohn/Toxic-MD\n◎━━━━━━━━━━━━━━━━◎`,
+        mentions: [m.sender]
+      }, { quoted: m });
     }
-
-    if (audioPath) {
-      await client.sendMessage(
-        m.chat,
-        {
-          audio: { url: audioPath },
-          ptt: true,
-          mimetype: 'audio/mpeg',
-          fileName: 'menu.mp3',
-        },
-        { quoted: m }
-      );
-    }
-  },
+  }
 };
