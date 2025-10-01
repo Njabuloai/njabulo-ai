@@ -105,12 +105,12 @@ function smsg(conn, m, store) {
          isForwarded: true,
          forwardedNewsletterMessageInfo: {
          newsletterJid: '120363399999197102@newsletter',
-         newsletterName: "╭••➤®Njabulo Jb🍥",
+         newsletterName: "╭••➤®Njabulo AI🍥",
          serverMessageId: 143,
          },
          forwardingScore: 999, // 
          externalAdReply: {
-         title: "Njabulo Jb",
+         title: "Njabulo AI",
          previewType: "PHOTO",
          thumbnail: kali, 
          renderLargerThumbnail: true,
